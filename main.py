@@ -17,17 +17,25 @@ def main():
     # Preprocessor
     preprocessor = build_preprocessor(X_train)
 
-    # Model
-    model = build_model(preprocessor)
+    #Models
+    print("\nTraining Random Forest...")
+    rf_model = build_model(preprocessor, model_type="rf")
+    rf_model = train_model(rf_model, X_train, y_train)
 
-    # Training
-    model = train_model(model, X_train, y_train)
+    print("\nTraining Logistic Regression...")
+    log_model = build_model(preprocessor, model_type="logreg")
+    log_model = train_model(log_model, X_train, y_train)
 
     # Evaluation
-    evaluate_model(model, X_test, y_test)
+    print("Random Forest Evaluation")
+    evaluate_model(rf_model, X_test, y_test)
 
-    joblib.dump(model, "model/churn_model.pkl")
-    print("Model saved as churn_model.pkl")
+    print("Logistic Regression Evaluation")
+    evaluate_model(log_model, X_test, y_test)
+
+
+    # joblib.dump(model, "model/churn_model.pkl")
+    # print("Model saved as churn_model.pkl")
 
 if __name__ == "__main__":
     main()
