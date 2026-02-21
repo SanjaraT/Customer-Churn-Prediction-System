@@ -1,15 +1,16 @@
 from sklearn.pipeline import Pipeline
-from sklearn.ensamble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 def build_model(preprocessor):
     model = Pipeline(
         steps=[
             ("preprocessing", preprocessor),
             ("classifier", RandomForestClassifier(
-                n_estimators = 200,
-                random_state = 42,
-                class_weight = "balanced"
-            ))
+                    n_estimators=400,
+                    max_depth=10,
+                    min_samples_split=5,
+                    class_weight="balanced_subsample"
+                ))
         ]
     )
     return model
