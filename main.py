@@ -51,8 +51,8 @@ def main():
     )
 
 
-    # joblib.dump(model, "model/churn_model.pkl")
-    # print("Model saved as churn_model.pkl")
+    joblib.dump(log_model, "model/churn_model.pkl")
+    print("\nModel saved as churn_model.pkl")
 
 if __name__ == "__main__":
     main()
