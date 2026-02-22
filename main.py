@@ -2,7 +2,7 @@ import joblib
 from src.EDA import load_data, basic_info, clean_data
 from src.Preprocess import split_data, build_preprocessor
 from src.train import build_model, train_model
-from src.evaluation import evaluate_model
+from src.evaluation import evaluate_model, find_best_threshold
 
 
 def main():
@@ -12,26 +12,43 @@ def main():
     df = clean_data(df)
 
     # Split
-    X_train, X_test, y_train, y_test = split_data(df)
+    X_train, X_val, X_test, y_train, y_val, y_test = split_data(df)
 
     # Preprocessor
     preprocessor = build_preprocessor(X_train)
 
     #Models
-    print("\nTraining Random Forest...")
+    print("Random Forest")
     rf_model = build_model(preprocessor, model_type="rf")
     rf_model = train_model(rf_model, X_train, y_train)
 
-    print("\nTraining Logistic Regression...")
+    print("Logistic Regression")
     log_model = build_model(preprocessor, model_type="logreg")
     log_model = train_model(log_model, X_train, y_train)
 
-    # Evaluation
-    print("Random Forest Evaluation")
-    evaluate_model(rf_model, X_test, y_test)
+    #Threshold tuning 
+    print("\nBest threshold for Random Forest")
+    rf_best_threshold = find_best_threshold(rf_model, X_val, y_val)
 
-    print("Logistic Regression Evaluation")
-    evaluate_model(log_model, X_test, y_test)
+    print("\nBest threshold for Logistic Regression")
+    log_best_threshold = find_best_threshold(log_model, X_val, y_val)
+
+    # Evaluation
+    evaluate_model(
+        rf_model,
+        X_test,
+        y_test,
+        threshold=rf_best_threshold,
+        model_name="Random Forest"
+    )
+
+    evaluate_model(
+        log_model,
+        X_test,
+        y_test,
+        threshold=log_best_threshold,
+        model_name="Logistic Regression"
+    )
 
 
     # joblib.dump(model, "model/churn_model.pkl")
