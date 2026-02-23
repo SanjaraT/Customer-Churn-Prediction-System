@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from model.predict import MODEL_PATH, MODEL_VERSION, model, predict_output
 from fastapi.responses import JSONResponse
 from schema.input import UserInput
+from schema.response import PredictionResponse
 
 app = FastAPI()
 
@@ -17,11 +18,10 @@ def health_check():
         "model_loaded": model is not None
     }
 
-@app.post("/predict")
+@app.post("/predict", response_model=PredictionResponse)
 def predict_churn(data: UserInput):
 
     try:
-        # Convert Pydantic model → dict
         user_input = data.model_dump()
 
         result = predict_output(user_input)

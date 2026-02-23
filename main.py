@@ -50,9 +50,22 @@ def main():
         model_name="Logistic Regression"
     )
 
+    import os
 
-    joblib.dump(log_model, "model/churn_model.pkl")
-    print("\nModel saved as churn_model.pkl")
+    os.makedirs("model", exist_ok=True)
+
+    model_artifacts = {
+        "model": log_model,
+        "preprocessor": preprocessor,
+        "threshold": log_best_threshold
+    }
+
+    joblib.dump(model_artifacts, "backend_app/model/churn.pkl")
+
+    print("\nPipeline and threshold saved as churn_pipeline.pkl")
+
+    # joblib.dump(log_model, "model/churn_model.pkl")
+    # print("\nModel saved as churn_model.pkl")
 
 if __name__ == "__main__":
     main()

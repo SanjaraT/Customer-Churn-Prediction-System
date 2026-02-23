@@ -5,7 +5,12 @@ import numpy as np
 MODEL_PATH = "model/churn.pkl"
 MODEL_VERSION = "1.0.0"
 
-model = joblib.load(MODEL_PATH)
+
+loaded_artifacts = joblib.load(MODEL_PATH)
+
+model = loaded_artifacts["model"]
+preprocessor = loaded_artifacts["preprocessor"]
+threshold = loaded_artifacts["threshold"]
 
 def predict_output(user_input: dict):
 
