@@ -5,7 +5,7 @@ from typing import Literal, Annotated
 YesNo = Literal["Yes", "No"]
 YesNoNoInternet = Literal["Yes", "No", "No internet service"]
 
-class ChurnRequest(BaseModel):
+class UserInput(BaseModel):
     gender: Literal["Male", "Female"] = Field(description="Customer gender")
     SeniorCitizen: YesNo = Field(description="Whether customer is a senior citizen")
     Partner: YesNo = Field(description="Whether customer has a partner")
