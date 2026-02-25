@@ -24,13 +24,36 @@ def split_data(df):
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 def build_preprocessor(X):
-    cat_cols = X.select_dtypes(include=["object"]).columns
-    num_cols = X.select_dtypes(include=["int64","float64"]).columns
-
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", StandardScaler(),num_cols),
-            ("cat", OneHotEncoder(handle_unknown="ignore"),cat_cols)
+        categorical_cols = [
+            "gender",
+            "SeniorCitizen",
+            "Partner",
+            "Dependents",
+            "PhoneService",
+            "MultipleLines",
+            "InternetService",
+            "OnlineSecurity",
+            "OnlineBackup",
+            "DeviceProtection",
+            "TechSupport",
+            "StreamingTV",
+            "StreamingMovies",
+            "Contract",
+            "PaperlessBilling",
+            "PaymentMethod"
         ]
-    )
-    return preprocessor
+
+        numerical_cols = [
+            "tenure",
+            "MonthlyCharges",
+            "TotalCharges"
+        ]
+
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ("num", StandardScaler(), numerical_cols),
+                ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols)
+            ]
+        )
+
+        return preprocessor

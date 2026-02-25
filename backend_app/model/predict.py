@@ -2,14 +2,13 @@ import joblib
 import pandas as pd
 import numpy as np
 
-MODEL_PATH = "model/churn.pkl"
+MODEL_PATH = "model/churn_model.pkl"
 MODEL_VERSION = "1.0.0"
 
 
 loaded_artifacts = joblib.load(MODEL_PATH)
 
 model = loaded_artifacts["model"]
-preprocessor = loaded_artifacts["preprocessor"]
 threshold = loaded_artifacts["threshold"]
 
 def predict_output(user_input: dict):
@@ -19,10 +18,10 @@ def predict_output(user_input: dict):
     prediction = model.predict(df)[0]
     probability = model.predict_proba(df)[0][1]
 
-    threshold = 0.5
+    label = "Yes" if prediction == 1 else "No"
 
     result = {
-        "prediction": int(prediction),
+        "prediction": label,
         "probability": float(np.round(probability, 4)),
         "threshold": threshold,
         "model_version": MODEL_VERSION

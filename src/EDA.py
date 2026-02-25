@@ -16,8 +16,8 @@ def clean_data(df):
     df = df.drop("customerID", axis =1)
     df["TotalCharges"]= pd.to_numeric(df["TotalCharges"], errors="coerce")
     df["TotalCharges"] = df["TotalCharges"].fillna(df["TotalCharges"].median())
+    df["SeniorCitizen"] = df["SeniorCitizen"].map({0: "No", 1: "Yes"})
     return df
 
-df = load_data("data/churn.csv")
 
 

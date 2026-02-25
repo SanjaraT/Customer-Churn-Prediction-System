@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import Literal, Annotated
+from pydantic import BaseModel, Field, field_validator
+from typing import Literal, Annotated, get_args
 
 
 YesNo = Literal["Yes", "No"]
@@ -34,6 +34,23 @@ class UserInput(BaseModel):
     MonthlyCharges: Annotated[float, Field(ge=0, description="Monthly subscription charge")]
     TotalCharges: Annotated[float, Field(ge=0, description="Total amount charged to the customer")]
 
+    @field_validator("*", mode="before")
+    @classmethod
+    def case_insensitive_literal(cls, value, info):
+        if not isinstance(value, str):
+            return value
+
+        field = cls.model_fields.get(info.field_name)
+
+        if field and hasattr(field.annotation, "__args__"):
+            allowed_values = get_args(field.annotation)
+
+            for allowed in allowed_values:
+                if value.strip().lower() == allowed.lower():
+                    return allowed  # return original correct format
+
+        return value
+
     model_config = {
         "json_schema_extra": {
             "example": {
@@ -60,7 +77,3 @@ class UserInput(BaseModel):
         }
     }
 
-class ChurnResponse(BaseModel):
-    prediction: int
-    probability: float
-    threshold: float

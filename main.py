@@ -50,9 +50,6 @@ def main():
         model_name="Logistic Regression"
     )
 
-    import os
-
-    os.makedirs("model", exist_ok=True)
 
     model_artifacts = {
         "model": log_model,
@@ -60,9 +57,9 @@ def main():
         "threshold": log_best_threshold
     }
 
-    joblib.dump(model_artifacts, "backend_app/model/churn.pkl")
+    joblib.dump(model_artifacts, "churn_model.pkl")
 
-    print("\nPipeline and threshold saved as churn_pipeline.pkl")
+    print("\nPipeline and threshold saved as churn.pkl")
 
     # joblib.dump(log_model, "model/churn_model.pkl")
     # print("\nModel saved as churn_model.pkl")
