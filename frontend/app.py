@@ -1,4 +1,5 @@
 import streamlit as st
+from utils import get_prediction
 
 st.set_page_config(page_title="Customer Churn Prediction", layout="wide")
 st.title("Customer Churn Prediction")
@@ -47,3 +48,42 @@ with st.form("churn_form"):
     col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
     with col_btn2:
         submit = st.form_submit_button("Predict", use_container_width=True)
+
+if submit:
+
+    payload = {
+        "gender": gender,
+        "SeniorCitizen": senior,
+        "Partner": partner,
+        "Dependents": dependents,
+        "tenure": tenure,
+        "PhoneService": phone,
+        "MultipleLines": multiple,
+        "InternetService": internet,
+        "OnlineSecurity": online_sec,
+        "OnlineBackup": backup,
+        "DeviceProtection": device,
+        "TechSupport": tech,
+        "StreamingTV": tv,
+        "StreamingMovies": movies,
+        "Contract": contract,
+        "PaperlessBilling": billing,
+        "PaymentMethod": payment,
+        "MonthlyCharges": monthly,
+        "TotalCharges": total
+    }
+
+    result, error = get_prediction(payload)
+
+    if error:
+        st.error(f"API Error: {error}")
+    else:
+        prediction = result["prediction"]
+        probability = result["probability"]
+
+        if prediction == "Yes":
+            st.error(f"Customer is likely to CHURN")
+        else:
+            st.success(f"Customer is NOT likely to churn")
+
+        st.write(f"**Probability:** {probability}")
