@@ -40,3 +40,10 @@ with st.form("churn_form"):
 
         monthly = st.number_input("Monthly Charges", min_value=0.0, value=70.0)
         total = st.number_input("Total Charges", min_value=0.0, value=1000.0)
+
+    #Prediction button
+    # st.markdown("###")
+
+    col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+    with col_btn2:
+        submit = st.form_submit_button("Predict", use_container_width=True)
