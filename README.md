@@ -1,4 +1,5 @@
 --Project Overview--
+
 A full-stack Machine Learning application that predicts customer churn using the Telco Customer Churn dataset, deployed with a FastAPI backend and Streamlit frontend. This project implements an end-to-end Machine Learning pipeline for predicting whether a telecom customer is likely to churn.
 
 The system includes:
@@ -83,4 +84,5 @@ NumPy
 Joblib
 
 --Author--
+
 Sanjara
