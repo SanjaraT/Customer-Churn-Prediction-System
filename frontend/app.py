@@ -3,7 +3,7 @@ from utils import get_prediction
 
 st.set_page_config(page_title="Customer Churn Prediction", layout="wide")
 st.title("Customer Churn Prediction")
-st.markdown("Enter customer details o predct curn risk.")
+st.markdown("Enter customer details to predict curn risk.")
 
 with st.form("churn_form"):
     col1,col2 = st.columns(2)
