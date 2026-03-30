@@ -16,7 +16,7 @@ The system includes:
  
  **Live Aplication**
 
- Live Demo: (ahttps://customer-churn-prediction-system-9m0o.onrender.com)
+ Live Demo: (https://customer-churn-prediction-system-9m0o.onrender.com)
 
  API Endpoint: (https://customer-churn-prediction-system-backend.onrender.com)
 
