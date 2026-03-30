@@ -10,9 +10,17 @@ The system includes:
 
 -  REST API using FastAPI
 
-- Interactive frontend using Streamlit
+- Interactive frontend using Streamlit 
 
 - Full separation of training and inference environments
+ 
+ **Live Aplication**
+
+ Live Demo: (ahttps://customer-churn-prediction-system-9m0o.onrender.com)
+
+ API Endpoint: (https://customer-churn-prediction-system-backend.onrender.com)
+
+ API Docs: (https://customer-churn-prediction-system-backend.onrender.com/docs)
 
 **Dataset**
 
@@ -81,5 +89,5 @@ The frontend ensures seamless communication between user input and backend infer
 
 - Joblib
 
-**Author**
-### Sanjara
+**Author** : 
+Sanjara
